@@ -1,0 +1,39 @@
+<div class="skeleton-container">
+    <div *ngIf="type === 'text'" class="skeleton skeleton-text"></div>
+    <div *ngIf="type === 'circle'" class="skeleton skeleton-circle"></div>
+    <div *ngIf="type === 'horizontal'" class="skeleton skeleton-horizontal">
+        <div class="skeleton skeleton-circle"></div>
+        <div class="skeleton skeleton-text" style="width: 80%"></div>
+    </div>
+
+    <div *ngIf="type === 'vertical'" class="skeleton">
+        <div class="skeleton skeleton-text"></div>
+        <div class="skeleton skeleton-text" style="width: 80%"></div>
+    </div>
+    <div *ngIf="type === 'card'" class="skeleton-card">
+        <div class="skeleton-card-header"></div>
+        <div class="skeleton-card-body">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-value"></div>
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="skeleton-link"></div>
+                <div class="skeleton-link"></div>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="type === 'chart'" class="skeleton-chart">    
+        <div class="skeleton-chart-title"></div>
+        <div class="skeleton-chart-bars">
+            <div class="skeleton-bar" style="height: 30%;"></div>
+            <div class="skeleton-bar" style="height: 60%;"></div>
+            <div class="skeleton-bar" style="height: 50%;"></div>
+            <div class="skeleton-bar" style="height: 80%;"></div>
+            <div class="skeleton-bar" style="height: 40%;"></div>
+        </div>
+        <div class="skeleton-chart-legend">
+            <div class="skeleton-legend-item"></div>
+            <div class="skeleton-legend-item"></div>
+            <div class="skeleton-legend-item"></div>
+        </div>
+    </div>
+</div>

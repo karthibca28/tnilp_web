@@ -1,0 +1,201 @@
+<div class="user-management-container">
+  <div class="main-content">
+    <!-- Header -->
+    <div class="content-header">
+      <div class="header-left">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">CMS</span>
+          <span class="breadcrumb-separator">></span>
+          <span class="breadcrumb-item active">Settings</span>
+        </div>
+        <h1 class="page-title">User Management</h1>
+      </div>
+
+      <div class="header-right">
+        <button class="btn btn-primary" (click)="onAddUser()">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Export
+        </button>
+      </div>
+    </div>
+    <!-- <div class="page-header">
+    <div class="header-content">
+      <div class="title-section">
+        <h1 class="page-title">User Management</h1>
+        <p class="page-subtitle">Manage system users and their permissions</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" (click)="onExport()">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Export
+        </button>
+        <button class="btn btn-primary" (click)="onAddUser()">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Add User
+        </button>
+      </div>
+    </div>
+  </div> -->
+
+    <!-- User Table -->
+    <div class="table-container">
+      <div class="table-header">
+        <div class="table-title">System Users</div>
+        <div class="table-subtitle">{{ users.length }} users</div>
+      </div>
+      <div class="table-wrapper">
+        <div class="table-flex">
+          <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+              <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+            <input class="search-input" type="text" placeholder="Search users..." [(ngModel)]="searchTerm"
+              (input)="onSearch()">
+          </div>
+          <button class="btn btn-secondary btn-sm" (click)="onFilter()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22 3H2L10 12.46V19L14 21V12.46L22 3Z" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Filter
+          </button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="checkbox-column">
+                <input type="checkbox" [checked]="isAllSelected()" (change)="onSelectAll($event)"
+                  class="table-checkbox">
+              </th>
+              <th class="name-column">User Name</th>
+              <th class="email-column">Email</th>
+              <th class="role-column">Role</th>
+              <th class="status-column">Status</th>
+              <th class="department-column">Department</th>
+              <th class="actions-column">
+                <svg class="actions-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="1" fill="currentColor" />
+                  <circle cx="12" cy="5" r="1" fill="currentColor" />
+                  <circle cx="12" cy="19" r="1" fill="currentColor" />
+                </svg>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of filteredUsers; let i = index" [class.selected]="user.selected" class="table-row">
+              <td class="checkbox-column">
+                <input type="checkbox" [(ngModel)]="user.selected" (change)="onUserSelect(user)" class="table-checkbox">
+              </td>
+              <td class="name-column">
+                <div class="user-info">
+                  <div class="user-avatar">
+                    {{ getUserInitials(user.name) }}
+                  </div>
+                  <div class="user-details">
+                    <span class="user-name">{{ user.name }}</span>
+                    <span class="user-id">ID: {{ user.id }}</span>
+                  </div>
+                </div>
+              </td>
+              <td class="email-column">
+                <span class="email-text">{{ user.email }}</span>
+              </td>
+              <td class="role-column">
+                <span class="tag" [class]="'tag-' + getRoleTagClass(user.role)">
+                  {{ user.role }}
+                </span>
+              </td>
+              <td class="status-column">
+                <span class="tag" [class]="'tag-' + getStatusTagClass(user.status)">
+                  {{ user.status }}
+                </span>
+              </td>
+              <td class="department-column">
+                <span class="department-text">{{ user.department }}</span>
+              </td>
+              <td class="actions-column">
+                <div class="actions-menu" [class.active]="user.showActions">
+                  <button class="action-trigger" (click)="toggleActions(user)">
+                    <svg class="kebab-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="1" fill="currentColor" />
+                      <circle cx="12" cy="5" r="1" fill="currentColor" />
+                      <circle cx="12" cy="19" r="1" fill="currentColor" />
+                    </svg>
+                  </button>
+                  <div class="actions-dropdown" *ngIf="user.showActions">
+                    <button class="action-item" (click)="onEditUser(user)">
+                      <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M11 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V20C2 20.5304 2.21071 21.0391 2.58579 21.4142C2.96086 21.7893 3.46957 22 4 22H18C18.5304 22 19.0391 21.7893 19.4142 21.4142C19.7893 21.0391 20 20.5304 20 20V13"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        <path
+                          d="M18.5 2.5C18.8978 2.10218 19.4374 1.87868 20 1.87868C20.5626 1.87868 21.1022 2.10218 21.5 2.5C21.8978 2.89782 22.1213 3.43739 22.1213 4C22.1213 4.56261 21.8978 5.10218 21.5 5.5L12 15L8 16L9 12L18.5 2.5Z"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      Edit
+                    </button>
+                    <button class="action-item" (click)="onViewDetails(user)">
+                      <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 12S5 4 12 4S23 12 23 12S19 20 12 20S1 12 1 12Z" stroke="currentColor"
+                          stroke-width="2" />
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+                      </svg>
+                      View Details
+                    </button>
+                    <button class="action-item danger" (click)="onRemoveUser(user)">
+                      <svg class="action-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 6H5H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                          stroke-linejoin="round" />
+                        <path
+                          d="M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6H19Z"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="table-footer">
+        <div class="pagination-info">
+          <span>Showing {{ getDisplayRange() }} of {{ users.length }} users</span>
+        </div>
+        <div class="pagination-controls">
+          <button class="pagination-btn" [disabled]="currentPage === 1" (click)="onPreviousPage()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+          <span class="page-info">{{ currentPage }} of {{ totalPages }}</span>
+          <button class="pagination-btn" [disabled]="currentPage === totalPages" (click)="onNextPage()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

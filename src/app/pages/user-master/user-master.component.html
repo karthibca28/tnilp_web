@@ -1,0 +1,379 @@
+<!-- Common Header -->
+<app-common-header></app-common-header>
+
+<div class="user-master-container">
+  <!-- Header Section -->
+  <div class="user-master-header">
+    <div class="header-content">
+      <div class="header-title">
+        <h1>{{ currentView === 'list' ? 'User Management' : 'Create New User' }}</h1>
+        <p>{{ currentView === 'list' ? 'Manage survey users and their access permissions' : 'Add a new survey user to the system' }}</p>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn btn-outline-primary" (click)="onBackToDashboard()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back to Dashboard
+        </button>
+        <button *ngIf="currentView === 'list'" type="button" class="btn btn-primary" (click)="switchToCreateView()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Create User
+        </button>
+        <button *ngIf="currentView === 'create'" type="button" class="btn btn-outline-secondary" (click)="switchToListView()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6h18M3 12h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          User List
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb Navigation -->
+  <!-- <div class="breadcrumb-section">
+    <nav class="breadcrumb">
+      <a routerLink="/survey-dashboard" class="breadcrumb-link">Dashboard</a>
+      <span class="breadcrumb-separator">></span>
+      <a routerLink="/user-master" class="breadcrumb-link">Survey Team</a>
+      <span class="breadcrumb-separator">></span>
+      <span class="breadcrumb-current">{{ currentView === 'list' ? 'User List' : 'Create User' }}</span>
+    </nav>
+  </div> -->
+
+  <!-- Main Content -->
+  <div class="user-master-content">
+    <div class="user-list-section" *ngIf="!showAddForm">
+      <!-- <div class="section-header">
+        <h3>Survey Users</h3>
+        <div class="section-actions">
+          <button type="button" class="btn btn-outline-secondary" (click)="onRefreshUsers()">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 4V10H7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M23 20V14H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10M23 14L18.36 18.36A9 9 0 0 1 3.51 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Refresh
+          </button>
+        </div>
+      </div>
+
+      <div class="user-stats">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{{ totalUsers }}</span>
+            <span class="stat-label">Total Users</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.91.37 4.15 1.02" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{{ activeUsers }}</span>
+            <span class="stat-label">Active Users</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{{ districtsCount }}</span>
+            <span class="stat-label">Districts</span>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- Modern Table Card -->
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title-section">
+            <h2 class="table-title">All Users</h2>
+            <span class="table-subtitle">Active Members</span>
+          </div>
+          <div class="table-controls">
+            <div class="search-container">
+              <svg class="search-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                <path d="m21 21-4.35-4.35" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <input type="text" class="search-input" placeholder="Search" [(ngModel)]="searchTerm" (input)="onSearch()">
+            </div>
+            <div class="sort-container">
+              <label class="sort-label">Sort by:</label>
+              <select class="sort-select" [(ngModel)]="sortBy" (change)="onSortChange()">
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="name">Name</option>
+                <option value="district">District</option>
+                <option value="status">Status</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modern Table -->
+        <div class="modern-table-container">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>S.No</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>District</th>
+                <th>Block</th>
+                <th>Panchayat</th>
+                <th>User Level</th>
+                <th>Target</th>
+                <th>Last Login</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of paginatedUsers; let i = index" class="table-row">
+                <td class="sno-cell">{{ getStartIndex() + i - 1 }}</td>
+                <td class="name-cell">
+                  <div class="user-info">
+                    <div class="user-avatar">{{ (user.name && user.name.charAt(0)) ? user.name.charAt(0).toUpperCase() : 'U' }}</div>
+                    <span class="user-name">{{ user.name || 'N/A' }}</span>
+                  </div>
+                </td>
+                <td class="mobile-cell">{{ user.mobile || 'N/A' }}</td>
+                <td class="email-cell">{{ user.email || 'N/A' }}</td>
+                <td class="district-cell">{{ user.district || 'N/A' }}</td>
+                <td class="block-cell">{{ user.block || 'N/A' }}</td>
+                <td class="panchayat-cell">{{ user.panchayat || 'N/A' }}</td>
+                <td class="user-level-cell">{{ user.userLevel || 'N/A' }}</td>
+                <td class="target-cell">{{ user.target || 'N/A' }}</td>
+                <td class="last-login-cell">{{ user.lastLogin || 'N/A' }}</td>
+                <td class="status-cell">
+                  <span class="status-pill" [ngClass]="user.isActive === 1 ? 'active' : 'inactive'">
+                    {{ user.isActive === 1 ? 'Active' : 'Inactive' }}
+                  </span>
+                </td>
+                <td class="actions-cell">
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="onEditUser(user)">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Edit
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+          <div class="pagination-info">
+            <span class="pagination-text">Showing data {{ getStartIndex() }} to {{ getEndIndex() }} of {{ filteredUsers.length }} entries</span>
+          </div>
+          <div class="pagination-controls">
+            <button class="pagination-btn" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Previous
+            </button>
+            <div class="page-numbers">
+              <button 
+                *ngFor="let page of getPageNumbers()" 
+                class="page-number" 
+                [class.active]="currentPage === page" 
+                (click)="goToPage(page)">
+                {{ page }}
+              </button>
+              <span *ngIf="totalPages > 5 && currentPage < totalPages - 2" class="page-ellipsis">...</span>
+              <button 
+                *ngIf="totalPages > 5 && currentPage < totalPages - 2" 
+                class="page-number" 
+                (click)="goToPage(totalPages)">
+                {{ totalPages }}
+              </button>
+            </div>
+            <button class="pagination-btn" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+              Next
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add User Form Section -->
+    <div class="add-user-section" *ngIf="showAddForm">
+      <div class="form-header">
+        <h3>User Registration</h3>
+        <button type="button" class="btn btn-outline-secondary" (click)="onCancelAdd()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Cancel
+        </button>
+      </div>
+
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+        <div class="form-row">
+          <!-- Column 1 -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="district">District *</label>
+              <select id="district" formControlName="district" (change)="onDistrictChange()" class="form-control">
+                <option value="">Select District</option>
+                <option *ngFor="let district of districts" [value]="district.id">{{ district.name }}</option>
+              </select>
+              <div class="error-message" *ngIf="userForm.get('district')?.invalid && userForm.get('district')?.touched">
+                District is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="name">Name *</label>
+              <input type="text" id="name" formControlName="name" class="form-control" placeholder="Enter full name">
+              <div class="error-message" *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched">
+                Name is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password *</label>
+              <input type="password" id="password" formControlName="password" class="form-control" placeholder="Enter password">
+            </div>
+
+            <div class="form-group">
+              <label for="userLevel">User Level *</label>
+              <select id="userLevel" formControlName="userLevel" class="form-control">
+                <option value="">Select User Level</option>
+                <option *ngFor="let userLevel of userLevels" [value]="userLevel.name">{{ userLevel.name }}</option>
+              </select>
+              <div class="error-message" *ngIf="userForm.get('userLevel')?.invalid && userForm.get('userLevel')?.touched">
+                User Level is required.
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="block">Block *</label>
+              <select id="block" formControlName="block" (change)="onBlockChange()" class="form-control" [disabled]="!userForm.get('district')?.value">
+                <option value="">Select Block</option>
+                <option *ngFor="let block of blocks" [value]="block.blockId">{{ block.blockName }}</option>
+              </select>
+              <div class="error-message" *ngIf="userForm.get('block')?.invalid && userForm.get('block')?.touched">
+                Block is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" formControlName="email" class="form-control" placeholder="Enter email address">
+            </div>
+
+            <div class="form-group">
+              <label for="designation">Designation *</label>
+              <select id="designation" formControlName="designation" class="form-control">
+                <option value="">Select Designation</option>
+                <option *ngFor="let designation of designations" [value]="designation.designationId">{{ designation.name }}</option>
+              </select>
+              <div class="error-message" *ngIf="userForm.get('designation')?.invalid && userForm.get('designation')?.touched">
+                Designation is required.
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 3 -->
+          <div class="form-column">
+            <div class="form-group">
+              <label for="panchayat">Panchayat *</label>
+              <select id="panchayat" formControlName="panchayat" class="form-control" [disabled]="!userForm.get('block')?.value">
+                <option value="">Select Panchayat</option>
+                <option *ngFor="let panchayat of panchayats" [value]="panchayat.panchayatId">{{ panchayat.panchayatName }}</option>
+              </select>
+              <div class="error-message" *ngIf="userForm.get('panchayat')?.invalid && userForm.get('panchayat')?.touched">
+                Panchayat is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="mobile">Mobile Number *</label>
+              <input type="tel" id="mobile" formControlName="mobile" class="form-control" placeholder="Enter mobile number">
+              <div class="error-message" *ngIf="userForm.get('mobile')?.invalid && userForm.get('mobile')?.touched">
+                Mobile number is required.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="role">User Role *</label>
+              <select id="role" formControlName="role" class="form-control">
+                <option value="">Select Role</option>
+                <option *ngFor="let role of roleTypes" [value]="role.id">{{ role.name }}</option>
+              </select>
+              <div class="error-message" *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched">
+                User Role is required.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success" [disabled]="userForm.invalid">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Submit
+          </button>
+          <button type="button" class="btn btn-outline-secondary" (click)="onCancelAdd()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Quick Navigation -->
+  <!-- <div class="quick-navigation">
+    <button type="button" class="nav-btn" routerLink="/survey-dashboard">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/>
+        <polyline points="9,22 9,12 15,12 15,22" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      Dashboard
+    </button>
+    <button type="button" class="nav-btn" routerLink="/survey-users">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      Survey Users
+    </button>
+    <button type="button" class="nav-btn" routerLink="/pat-indicator">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.91.37 4.15 1.02" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      PAT Indicator
+    </button>
+  </div> -->
+</div>

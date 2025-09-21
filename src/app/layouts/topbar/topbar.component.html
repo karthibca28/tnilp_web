@@ -1,0 +1,159 @@
+<header id="page-topbar" data-scroll-header>
+    <div class="layout-width container-fluid">
+        <div class="navbar-header d-flex align-items-center w-100">
+            <div class="d-flex align-items-center flex-grow-1 text-truncate">
+                <div class="logo-container me-3 ms-3">
+                    <img class="top-logo" src="assets/images/itm/logos/goverment-logo.png" alt="Logo" width="50" />
+                </div>
+                <div class="d-flex align-items-center bg-white rounded"
+                    style="border-left: 6px solid; border-image: linear-gradient(135deg, #2548a7 0%, #132566 100%) 1;">
+
+                    <div class="d-flex align-items-center ms-3">
+                        <!-- Logo -->
+
+
+                        <!-- Text -->
+                        <div>
+                            <div class="fw-semibold text-dark" style="font-size: 16px;">
+                                Welcome Honorable Minister
+                            </div>
+                            <div class="text-muted" style="font-size: 14px;">
+                                Information Technology and Digital Services
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <button type="button"
+                    class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger me-2 shadow-none"
+                    id="topnav-hamburger-icon" (click)="toggleMobileMenu($event)">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button> -->
+                <div class="d-flex align-items-center">
+                    <!-- <div class="top-menu">
+                        <div class="logo-container">
+                            <img class="top-logo" src="assets/images/itm/logos/goverment-logo.png" alt="" width="50%" />
+                        </div>
+                    </div> -->
+                    <!-- <h1 class="fw-bold ms-n4">
+                        {{ getTranslation(selectedDepartmentKey)}}
+                    </h1> -->
+                </div>
+                <!-- <div class="d-none d-lg-block fw-semibold text-truncate">
+                    {{ getTranslation('welcomeMinister') | translation }}<br />
+                    {{ getTranslation('itAndDigitalServices') | translation }}
+                </div> -->
+            </div>
+            <div class="d-flex align-items-center ms-auto flex-shrink-0">
+                <!-- <div class="d-none d-lg-block fw-semibold text-truncate">
+                    {{ getTranslation('welcomeMinister') | translation }}<br />
+                    {{ getTranslation('itAndDigitalServices') | translation }}
+                </div> -->
+                <button type="button"
+                    class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle shadow-none me-1"
+                    data-toggle="fullscreen" (click)="fullscreen()">
+                    <i class='bx bx-fullscreen fs-22'></i>
+                </button>
+
+                <!-- <div class="dropdown topbar-head-dropdown me-1" ngbDropdown>
+                    <button type="button" class="btn shadow-none btn-icon btn-topbar btn-ghost-secondary rounded-circle"
+                        id="page-header-notifications-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false" ngbDropdownToggle>
+                        <i class='bx bx-bell fs-22'></i>
+                        <span
+                            class="position-absolute topbar-badge fs-10 translate-middle badge rounded-pill bg-danger">0
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </button>
+                   
+                </div> -->
+
+                <button type="button" *ngIf="loginType === 'it-minister'"
+                    class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle shadow-none me-2"
+                    data-toggle="home" (click)="goToMinisterHome()">
+                    <i class='bx bx-home fs-22'></i>
+                </button>
+
+                <div class="topbar-user" ngbDropdown>
+                    <!-- Profile button -->
+                    <button type="button" ngbDropdownToggle
+                        style="display: flex; align-items: center; background: white; border: none; cursor: pointer; ">
+
+                        <!-- Left Divider -->
+                        <div style="width: 3px; height: 45px; background-color: #e5e7eb; border-radius: 4px;"></div>
+
+                        <!-- Profile Circle + User Info -->
+                        <div style="display: flex; align-items: center; margin-left: 10px;">
+                            <div style="width: 40px; height: 40px; background-color: #1E3A8A; color: white; font-weight: bold;
+                  font-size: 14px; border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                                {{ getInitials(loginData?.data?.firstName, loginData?.data?.lastName) }}
+                            </div>
+
+                            <div style="margin-left: 8px; display: none;" class="d-xl-block">
+                                <div style="font-weight: 600; color: black; font-size: 15px;">
+                                    {{ loginData?.data?.firstName }} {{ loginData?.data?.lastName }}
+                                </div>
+                                <div style="color: #6c757d; font-size: 13px;">
+                                    {{ loginData?.data?.roleName }}
+                                </div>
+                            </div>
+                        </div>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div ngbDropdownMenu
+                        style="position: absolute; right: 0; background: white; padding: 5px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+                        <div style="padding: 8px; display: flex; align-items: center; cursor: pointer;"
+                            (click)="toggleLanguage()">
+                            <i class="mdi mdi-translate"
+                                style="font-size: 20px; color: #0d6efd; margin-right: 6px;"></i>
+                            <span>Language - {{ currentLanguage === 'en' ? 'தமிழ்' : 'English' }}</span>
+                        </div>
+                        <div style="padding: 8px; display: flex; align-items: center; cursor: pointer;"
+                            (click)="logout()">
+                            <i class="mdi mdi-logout" style="font-size: 20px; color: #dc3545; margin-right: 6px;"></i>
+                            <span>{{ getTranslation('logout') | translation }}</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- just to show the current user use later -->
+                <!-- <div class="dropdown topbar-user rounded-3">
+                    <button type="button" class="btn shadow-none d-flex align-items-center" data-bs-toggle="dropdown"
+                        aria-expanded="false" style="background:none; border:none;">
+                        <img class="rounded-circle header-profile-user" src="assets/images/itm/icons/profile.png"
+                            alt="Header Avatar" style="width: 40px;height: 40px;" />
+                        <span class="text-start ms-2 d-none d-xl-block">
+                            <span class="fw-medium">{{ loginData?.data?.firstName }} {{ loginData?.data?.lastName
+                                }}</span><br>
+                            <span class="fs-12">{{ loginData?.data?.roleName }}</span>
+                        </span>
+                    </button>
+
+                    <div class="dropdown-menu dropdown-menu-end">
+                        <a class="dropdown-item cursor-pointer" (click)="toggleLanguage()">
+                            <i class="mdi mdi-translate text-muted fs-16 align-middle me-1"></i>
+                            <span class="align-middle">
+                                Language - {{ currentLanguage === 'en' ? 'தமிழ்' : 'English' }}
+                            </span>
+                        </a>
+                        <a class="dropdown-item" href="javascript:void(0);" (click)="logout()">
+                            <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
+                            <span class="align-middle" data-key="t-logout">
+                                {{ getTranslation('logout') | translation }}
+                            </span>
+                        </a>
+                    </div>
+                </div> -->
+
+            </div>
+
+        </div>
+    </div>
+</header>

@@ -1,0 +1,40 @@
+// Bootstrap Custom Configuration
+// This file allows you to customize Bootstrap variables before importing Bootstrap
+
+// Import Bootstrap functions and variables
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+
+// Custom Bootstrap Variables
+// You can override Bootstrap variables here
+
+// Colors
+$primary: #059669;
+$secondary: #10b981;
+$success: #22c55e;
+$info: #3b82f6;
+$warning: #f59e0b;
+$danger: #ef4444;
+$light: #f8fafc;
+$dark: #1a202c;
+
+// Typography
+$font-family-base: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+$font-family-sans-serif: $font-family-base;
+
+// Border radius
+$border-radius: 8px;
+$border-radius-sm: 4px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+
+// Spacing
+$spacer: 1rem;
+
+// Shadows
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+$box-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+$box-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+// Import Bootstrap
+@import 'bootstrap/scss/bootstrap';

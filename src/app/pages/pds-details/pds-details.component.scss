@@ -1,0 +1,524 @@
+// PDS Details Container
+.pds-details-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  padding: 0;
+  padding-top: 70px; // Account for fixed header
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+// Breadcrumb Styling
+.breadcrumb {
+  background: white;
+  border-radius: 10px;
+  padding: 15px 20px;
+  box-shadow: 0 2px 8px rgba(0, 166, 81, 0.1);
+  border: 1px solid #e0f2fe;
+
+  .breadcrumb-item {
+    font-weight: 500;
+    color: #374151;
+
+    &.active {
+      color: #00a651;
+      font-weight: 600;
+    }
+
+    i {
+      color: #00a651;
+    }
+  }
+}
+
+// Survey Info Styling
+.survey-info {
+  .info-item {
+    padding: 8px 0;
+    border-bottom: 1px solid #f0f9ff;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+
+    i {
+      width: 20px;
+      text-align: center;
+      color: #00a651;
+    }
+  }
+}
+
+// Custom Progress Circle
+.progress-circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(#00a651 0deg, #00a651 var(--progress-angle, 0deg), #e0f2fe var(--progress-angle, 0deg), #e0f2fe 360deg);
+    border-radius: 50%;
+  }
+  
+  .progress-circle-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00a651;
+    z-index: 1;
+  }
+}
+
+// Indicator Cards
+.indicator-card {
+  background: white;
+  border: 1px solid #e0f2fe;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00a651 0%, #008f47 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 166, 81, 0.15);
+    border-color: #00a651;
+
+    &::before {
+      transform: scaleX(1);
+    }
+  }
+
+  .indicator-icon {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #00a651 0%, #008f47 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+  }
+
+  .indicator-score {
+    margin-top: 10px;
+  }
+
+  .progress-bar {
+    background: linear-gradient(90deg, #00a651 0%, #008f47 100%);
+    border-radius: 3px;
+  }
+}
+
+// Location Items
+.location-item {
+  background: white;
+  border: 1px solid #e0f2fe;
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 166, 81, 0.1);
+    border-color: #00a651;
+  }
+
+  .location-icon {
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #00a651 0%, #008f47 100%);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+  }
+}
+
+// Card Enhancements
+.card {
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  border: 1px solid #e0f2fe;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 166, 81, 0.1) !important;
+  }
+
+  .card-header {
+    border-radius: 15px 15px 0 0 !important;
+    border: none;
+    padding: 20px 25px;
+
+    &.bg-primary {
+      background: linear-gradient(135deg, #00a651 0%, #008f47 100%) !important;
+    }
+
+    &.bg-info {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+    }
+
+    .card-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+  }
+
+  .card-body {
+    padding: 25px;
+  }
+}
+
+// Button Enhancements
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &.btn-outline-secondary {
+    border-color: #6b7280;
+    color: #6b7280;
+
+    &:hover {
+      background-color: #00a651;
+      border-color: #00a651;
+      color: white;
+    }
+  }
+}
+
+// Responsive Adjustments
+@media (max-width: 768px) {
+  .pds-details-container {
+    padding-top: 60px;
+  }
+
+  .progress-circle {
+    width: 100px;
+    height: 100px;
+    
+    .progress-circle-value {
+      font-size: 1.2rem;
+    }
+  }
+
+  .indicator-card {
+    padding: 15px;
+    
+    .indicator-icon {
+      width: 35px;
+      height: 35px;
+      font-size: 16px;
+    }
+  }
+
+  .location-item {
+    padding: 15px;
+    
+    .location-icon {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+    }
+  }
+
+  .card {
+    .card-header {
+      padding: 15px 20px;
+    }
+    
+    .card-body {
+      padding: 20px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .pds-details-container {
+    padding-top: 50px;
+  }
+
+  .progress-circle {
+    width: 80px;
+    height: 80px;
+    
+    .progress-circle-value {
+      font-size: 1rem;
+    }
+  }
+
+  .indicator-card {
+    padding: 12px;
+    
+    .indicator-icon {
+      width: 30px;
+      height: 30px;
+      font-size: 14px;
+    }
+  }
+
+  .location-item {
+    padding: 12px;
+    
+    .location-icon {
+      width: 25px;
+      height: 25px;
+      font-size: 12px;
+    }
+  }
+
+  .card {
+    .card-header {
+      padding: 12px 15px;
+    }
+    
+    .card-body {
+      padding: 15px;
+    }
+  }
+}
+
+// Animation for progress circle
+@keyframes progressFill {
+  from {
+    --progress-angle: 0deg;
+  }
+  to {
+    --progress-angle: var(--target-angle);
+  }
+}
+
+.progress-circle {
+  animation: progressFill 1.5s ease-out forwards;
+}
+
+// Custom scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+// Detailed Survey Breakdown Styling
+.category-section {
+  border: 1px solid #e0f2fe;
+  border-radius: 12px;
+  background: white;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 166, 81, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .category-header {
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+    padding: 20px;
+    border-bottom: 1px solid #e0f2fe;
+
+    .category-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00a651 0%, #008f47 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0, 166, 81, 0.3);
+    }
+
+    .category-total {
+      .badge {
+        padding: 8px 16px;
+        font-size: 1rem;
+        border-radius: 20px;
+        box-shadow: 0 2px 4px rgba(0, 166, 81, 0.1);
+        background: linear-gradient(135deg, #00a651 0%, #008f47 100%) !important;
+      }
+    }
+  }
+
+  .category-content {
+    padding: 0;
+
+    .table {
+      margin-bottom: 0;
+      border: none;
+
+      thead {
+        th {
+          border: none;
+          font-weight: 600;
+          color: #374151;
+          padding: 15px 20px;
+          background: #f0f9ff;
+        }
+      }
+
+      tbody {
+        tr {
+          border: none;
+          transition: all 0.2s ease;
+
+          &:hover {
+            background-color: #f0f9ff;
+            transform: scale(1.01);
+          }
+
+          &:last-child {
+            td {
+              border-bottom: none;
+            }
+          }
+
+          td {
+            border: none;
+            padding: 15px 20px;
+            vertical-align: middle;
+            border-bottom: 1px solid #e0f2fe;
+
+            &:first-child {
+              font-weight: 500;
+              color: #111827;
+            }
+
+            &:nth-child(2) {
+              color: #6b7280;
+              font-style: italic;
+            }
+
+            &:last-child {
+              font-weight: 600;
+              font-size: 1.1rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Mark Color Classes
+.text-danger {
+  color: #dc2626 !important;
+}
+
+.text-warning {
+  color: #f59e0b !important;
+}
+
+.text-info {
+  color: #059669 !important;
+}
+
+.text-success {
+  color: #00a651 !important;
+}
+
+// Responsive Design for Detailed Breakdown
+@media (max-width: 768px) {
+  .category-section {
+    .category-header {
+      padding: 15px;
+
+      .category-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+
+      h5 {
+        font-size: 1rem;
+      }
+    }
+
+    .category-content {
+      .table {
+        font-size: 0.9rem;
+
+        thead th,
+        tbody td {
+          padding: 10px 15px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .category-section {
+    .category-header {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+
+      .d-flex {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .category-total {
+        margin-top: 10px;
+      }
+    }
+
+    .category-content {
+      .table-responsive {
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

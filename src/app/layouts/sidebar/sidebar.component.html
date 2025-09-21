@@ -1,0 +1,95 @@
+<div class="app-menu navbar-menu d-flex flex-column">
+
+  <!-- Sidebar header -->
+  <div class="sidebar-header text-center mb-4 bg-light p-3 rounded" *ngIf="appData">
+    <span class="logo-sm d-flex d-xl-none">
+      <img [src]="appData.logo" alt="{{ appData.label }}" height="40">
+    </span>
+    <span class="logo-lg d-none d-xl-flex flex-column align-items-center mb-2">
+      <img [src]="appData.logo" alt="{{ appData.label }}" style="max-height: 80px; width: auto;" class="mb-2">
+      <h5 class="sidebar-title fw-bold gradient-text m-0" [innerHTML]="appData.label"></h5>
+    </span>
+  </div>
+
+  <ngx-simplebar class="flex-grow-1 sidebar-menu-scroll">
+    <ul class="metismenu list-unstyled navbar-nav">
+
+      <ng-container *ngFor="let item of menuItems">
+
+        <!-- Title -->
+        <li class="menu-title" *ngIf="item.isTitle">
+          <span>{{ getTranslation(item.label) }}</span>
+        </li>
+
+        <!-- Parent menu -->
+        <li class="nav-item" *ngIf="!item.isTitle && !item.isLayout">
+
+          <!-- Link without children -->
+          <a *ngIf="!hasItems(item) && !item.action" [routerLink]="item.link" routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }" class="nav-link d-flex align-items-center gap-2">
+            <i class="bx {{ item.icon }} nav-icon" *ngIf="item.icon"></i>
+            <span>{{ getTranslation(item.label) }}</span>
+          </a>
+
+          <!-- Link with children -->
+          <a *ngIf="hasItems(item) && !item.action" href="javascript:void(0);"
+            class="nav-link d-flex align-items-center gap-2" [ngClass]="{'active': isChildActive(item)}"
+            (click)="toggleItem($event)">
+            <i class="bx {{ item.icon }} nav-icon" *ngIf="item.icon"></i>
+            <span>{{ getTranslation(item.label) }}</span>
+          </a>
+
+          <!-- Submenu -->
+          <div class="collapse menu-dropdown" [ngClass]="{'show': isChildActive(item)}" *ngIf="hasItems(item)">
+            <ul class="nav nav-sm flex-column">
+              <ng-container *ngFor="let sub of item.subItems">
+                <li class="nav-item">
+
+                  <!-- Subitem link -->
+                  <a [routerLink]="sub.link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                    class="nav-link d-flex align-items-center gap-2">
+                    <i class="bx {{ sub.icon }} nav-icon" *ngIf="sub.icon"></i>
+                    <span>{{ getTranslation(sub.label) }}</span>
+                  </a>
+
+                  <!-- Recursive sub-sub items -->
+                  <div class="collapse menu-dropdown sub-menu" *ngIf="hasItems(sub)"
+                    [ngClass]="{'show': isChildActive(sub)}">
+                    <ul class="nav nav-sm flex-column">
+                      <ng-container *ngFor="let sub2 of sub.subItems">
+                        <li class="nav-item">
+                          <a [routerLink]="sub2.link" routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            class="nav-link d-flex align-items-center gap-2">
+                            <i class="bx {{ sub2.icon }} nav-icon" *ngIf="sub2.icon"></i>
+                            <span>{{ getTranslation(sub2.label) }}</span>
+                          </a>
+                        </li>
+                      </ng-container>
+                    </ul>
+                  </div>
+
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+
+        </li>
+      </ng-container>
+    </ul>
+  </ngx-simplebar>
+
+  <!-- Logout -->
+  <div class="sidebar-bottom mb-lg-n5">
+    <hr class="sidebar-divider" />
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link d-flex align-items-center gap-2 text-danger mb-md-n4" (click)="handleAction('logout')">
+          <i class="mdi mdi-logout"></i>
+          <span>{{ getTranslation('Logout') }}</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</div>

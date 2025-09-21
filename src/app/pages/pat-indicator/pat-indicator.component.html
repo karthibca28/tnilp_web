@@ -1,0 +1,346 @@
+<!-- Common Header -->
+<app-common-header></app-common-header>
+
+<div class="pat-indicator-container">
+  <!-- Header Section -->
+  <div class="pat-indicator-header">
+    <div class="header-content">
+      <div class="header-title">
+        <h1>PAT Indicator Assessment</h1>
+        <p>Poverty Assessment Tool - Vulnerability Scoring System</p>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn btn-outline-primary" (click)="onBackToDashboard()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Back to Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breadcrumb Navigation -->
+  <div class="breadcrumb-section" *ngIf="currentLevel !== 'district'">
+    <nav class="breadcrumb">
+      <span class="breadcrumb-item" (click)="onBreadcrumbClick('district')">Districts</span>
+      <span class="breadcrumb-separator">></span>
+      <span class="breadcrumb-item" (click)="onBreadcrumbClick('block')" *ngIf="currentLevel === 'panchayat' || currentLevel === 'users'">{{ selectedDistrict }}</span>
+      <span class="breadcrumb-separator" *ngIf="currentLevel === 'panchayat' || currentLevel === 'users'">></span>
+      <span class="breadcrumb-item" (click)="onBreadcrumbClick('panchayat')" *ngIf="currentLevel === 'users'">{{ selectedBlock }}</span>
+      <span class="breadcrumb-separator" *ngIf="currentLevel === 'users'">></span>
+      <span class="breadcrumb-item active" *ngIf="currentLevel === 'users'">{{ selectedPanchayat }}</span>
+    </nav>
+  </div>
+
+  <!-- Current Level Header -->
+  <div class="level-header" *ngIf="currentLevel !== 'district'">
+    <div class="level-info">
+      <h2>{{ getCurrentLevelTitle() }}</h2>
+      <div class="location-breadcrumb">
+        <span class="location-item" *ngIf="selectedDistrict">{{ selectedDistrict }}</span>
+        <span class="location-separator" *ngIf="selectedBlock">›</span>
+        <span class="location-item" *ngIf="selectedBlock">{{ selectedBlock }}</span>
+        <span class="location-separator" *ngIf="selectedPanchayat">›</span>
+        <span class="location-item" *ngIf="selectedPanchayat">{{ selectedPanchayat }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content Section -->
+  <div class="pat-indicator-content">
+    <!-- District Level View -->
+    <div *ngIf="currentLevel === 'district'" class="district-level">
+      <div class="stats-section">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{{ totalUsers }}</span>
+            <span class="stat-label">Total Users</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 19c-5 0-9-4-9-9s4-9 9-9 9 4 9 9-4 9-9 9z" stroke="currentColor" stroke-width="2"/>
+              <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{{ averageScore }}</span>
+            <span class="stat-label">Average Score</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="stat-content">
+            <span class="stat-value">{{ highVulnerability }}</span>
+            <span class="stat-label">High Vulnerability</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Risk Level Legend -->
+      <div class="risk-legend">
+        <h4>Vulnerability Risk Levels</h4>
+        <div class="legend-items">
+          <div class="legend-item">
+            <span class="legend-color high"></span>
+            <span class="legend-text">
+              <strong>High Risk (40-50):</strong> Most vulnerable families requiring immediate assistance
+            </span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color medium"></span>
+            <span class="legend-text">
+              <strong>Medium Risk (25-39):</strong> Moderately vulnerable families needing support
+            </span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color low"></span>
+            <span class="legend-text">
+              <strong>Low Risk (0-24):</strong> Less vulnerable families with better conditions
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="district-cards">
+        <div class="district-card" *ngFor="let district of districtSummary" (click)="onDistrictClick(district)">
+          <div class="district-header">
+            <h3>{{ district.district }}</h3>
+            <div class="district-stats">
+              <div class="stat">
+                <span class="stat-value">{{ district.totalUsers }}</span>
+                <span class="stat-label">Users</span>
+              </div>
+              <div class="stat">
+                <span class="stat-value">{{ district.averageScore }}</span>
+                <span class="stat-label">Avg Score</span>
+              </div>
+            </div>
+          </div>
+          <div class="district-body">
+            <div class="vulnerability-breakdown">
+              <div class="vulnerability-item high">
+                <span class="count">{{ district.highVulnerability }}</span>
+                <span class="label">High Risk</span>
+              </div>
+              <div class="vulnerability-item medium">
+                <span class="count">{{ district.mediumVulnerability }}</span>
+                <span class="label">Medium Risk</span>
+              </div>
+              <div class="vulnerability-item low">
+                <span class="count">{{ district.lowVulnerability }}</span>
+                <span class="label">Low Risk</span>
+              </div>
+            </div>
+          </div>
+          <div class="district-footer">
+            <button type="button" class="view-details-btn">
+              View Details
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Block Level View -->
+    <div *ngIf="currentLevel === 'block'" class="block-level">
+      <div class="table-section">
+        <div class="table-header">
+          <h3>Blocks in {{ selectedDistrict }}</h3>
+        </div>
+        <div class="table-container">
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Block</th>
+                <th>Total Users</th>
+                <th>Average Score</th>
+                <th>High Risk</th>
+                <th>Medium Risk</th>
+                <th>Low Risk</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let block of blockSummary" (click)="onBlockClick(block)">
+                <td class="block-name">{{ block.block }}</td>
+                <td class="user-count">{{ block.totalUsers }}</td>
+                <td class="avg-score" [ngClass]="getScoreClass(block.averageScore)">
+                  {{ block.averageScore }}
+                </td>
+                <td class="risk-count high">{{ block.highVulnerability }}</td>
+                <td class="risk-count medium">{{ block.mediumVulnerability }}</td>
+                <td class="risk-count low">{{ block.lowVulnerability }}</td>
+                <td class="actions">
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="onBlockClick(block); $event.stopPropagation()">
+                    View Panchayats
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panchayat Level View -->
+    <div *ngIf="currentLevel === 'panchayat'" class="panchayat-level">
+      <div class="table-section">
+        <div class="table-header">
+          <h3>Panchayats in {{ selectedBlock }}, {{ selectedDistrict }}</h3>
+        </div>
+        <div class="table-container">
+          <table class="summary-table">
+            <thead>
+              <tr>
+                <th>Panchayat</th>
+                <th>Total Users</th>
+                <th>Average Score</th>
+                <th>High Risk</th>
+                <th>Medium Risk</th>
+                <th>Low Risk</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let panchayat of panchayatSummary" (click)="onPanchayatClick(panchayat)">
+                <td class="panchayat-name">{{ panchayat.panchayat }}</td>
+                <td class="user-count">{{ panchayat.totalUsers }}</td>
+                <td class="avg-score" [ngClass]="getScoreClass(panchayat.averageScore)">
+                  {{ panchayat.averageScore }}
+                </td>
+                <td class="risk-count high">{{ panchayat.highVulnerability }}</td>
+                <td class="risk-count medium">{{ panchayat.mediumVulnerability }}</td>
+                <td class="risk-count low">{{ panchayat.lowVulnerability }}</td>
+                <td class="actions">
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="onPanchayatClick(panchayat); $event.stopPropagation()">
+                    View Users
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- User Level View -->
+    <div *ngIf="currentLevel === 'users'" class="user-level">
+      <div class="table-section">
+        <div class="table-header">
+          <h3>PDS Beneficiaries in {{ selectedPanchayat }}, {{ selectedBlock }}, {{ selectedDistrict }}</h3>
+        </div>
+        <div class="table-container">
+          <table class="pat-indicator-table">
+            <thead>
+              <tr>
+                <th>PDS No.</th>
+                <th>Username</th>
+                <th>Shelter/Home</th>
+                <th>Special Category (Caste)</th>
+                <th>Special Category (Social)</th>
+                <th>Income Source</th>
+                <th>Health</th>
+                <th>Asset-Based Livelihoods</th>
+                <th>Food Security</th>
+                <th>Affected Due to Climate</th>
+                <th>Sanitation</th>
+                <th>Livelihood Aspirations</th>
+                <th>Total Mark</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of filteredUsers; trackBy: trackByPdsNo">
+                <td class="pds-number">{{ user.pdsNo }}</td>
+                <td class="username">{{ user.username }}</td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.shelterHome)">
+                  <span class="score-value">{{ user.shelterHome }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.specialCategoryCaste)">
+                  <span class="score-value">{{ user.specialCategoryCaste }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.specialCategorySocial)">
+                  <span class="score-value">{{ user.specialCategorySocial }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.incomeSource)">
+                  <span class="score-value">{{ user.incomeSource }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.health)">
+                  <span class="score-value">{{ user.health }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.assetBasedLivelihoods)">
+                  <span class="score-value">{{ user.assetBasedLivelihoods }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.foodSecurity)">
+                  <span class="score-value">{{ user.foodSecurity }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.affectedDueToClimate)">
+                  <span class="score-value">{{ user.affectedDueToClimate }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.sanitation)">
+                  <span class="score-value">{{ user.sanitation }}</span>
+                </td>
+                <td class="score-cell" [ngClass]="getScoreClass(user.livelihoodAspirations)">
+                  <span class="score-value">{{ user.livelihoodAspirations }}</span>
+                </td>
+                <td class="total-mark" [ngClass]="getTotalScoreClass(user.totalMark)">
+                  <span class="total-value">{{ user.totalMark }}</span>
+                </td>
+                <td class="actions">
+                  <button type="button" class="btn btn-sm btn-outline-primary" (click)="onViewUser(user)">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2"/>
+                      <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    View
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Navigation -->
+  <div class="quick-navigation">
+    <button type="button" class="nav-btn" routerLink="/survey-dashboard">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" stroke-width="2"/>
+        <polyline points="9,22 9,12 15,12 15,22" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      Dashboard
+    </button>
+    <button type="button" class="nav-btn" routerLink="/survey-results">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 19c-5 0-9-4-9-9s4-9 9-9 9 4 9 9-4 9-9 9z" stroke="currentColor" stroke-width="2"/>
+        <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Survey Results
+    </button>
+  </div>
+</div>

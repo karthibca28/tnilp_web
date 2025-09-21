@@ -1,0 +1,318 @@
+// /* Sidebar container */
+// .app-menu.navbar-menu {
+//     position: fixed; // Stick to top and left
+//     top: 70px; // Align with top of page
+//     left: 0; // Align to left
+//     width: 250px; // Adjust sidebar width
+//     height: 100vh; // Full viewport height
+//     margin: 0; // Remove any default margin
+//     padding: 0; // Remove any default padding
+//     background-color: #fff; // Optional: set your sidebar background
+//     z-index: 1000; // Make sure it stays above content
+//     overflow: hidden; // Hide overflow
+// }
+
+// /* Remove padding from inner container */
+// #scrollbar .container-fluid {
+//     padding-left: 0;
+//     padding-right: 0;
+//     margin: 0;
+// }
+
+// /* Logo box spacing */
+// .navbar-brand-box {
+//     padding: 0 1rem; // Adjust horizontal padding if needed
+//     margin: 0;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     height: 70px; // Match your topbar height
+// }
+
+// /* Scrollable menu */
+// .sidebar-menu-scroll {
+//     max-height: calc(100vh - 70px); // Adjust for topbar height
+//     overflow-y: auto;
+//     padding: 0;
+// }
+
+// /* Remove default list padding/margin */
+// ul.navbar-nav {
+//     margin: 0;
+//     padding: 0;
+//     list-style: none;
+// }
+
+// // .nav-link.menu-link i,
+// // .nav-link.menu-link span {
+// //     display: inline-flex !important;
+// // }
+
+/* === Sidebar Container === */
+// .app-menu.navbar-menu {
+//     position: fixed;
+//     top: 70px;
+//     left: 0;
+//     width: 250px !important;
+//     /* force width */
+//     min-width: 250px !important;
+//     /* stop shrinking */
+//     height: 100vh;
+//     margin: 0;
+//     padding: 0;
+//     background-color: #fff;
+//     z-index: 1000;
+//     border-right: 1px solid #e5e5e5;
+//     display: flex;
+//     flex-direction: column;
+// }
+
+
+// /* === Inner container reset === */
+// #scrollbar .container-fluid {
+//     padding: 0;
+//     margin: 0;
+// }
+
+// /* === Sidebar Brand / Top Logo Section === */
+// .navbar-brand-box {
+//     height: 70px;
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     padding: 0 1rem;
+//     background-color: #fff;
+//     border-bottom: 1px solid #e5e5e5;
+// }
+
+// /* Circle Logo (optional) */
+// .circleTop {
+//     width: 45px;
+//     height: 45px;
+//     border-radius: 50%;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     background: #FF8C00;
+//     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+//     color: #fff;
+//     font-size: 20px;
+// }
+
+// /* Brand Text */
+// .vts-text {
+//     color: #FF8C00;
+//     letter-spacing: 2px;
+//     font-weight: bold;
+//     margin-left: 10px;
+// }
+
+// /* === Scrollable Menu === */
+// .sidebar-menu-scroll {
+//     max-height: calc(100vh - 70px);
+//     /* full height minus brand header */
+//     overflow-y: auto;
+//     padding: 0;
+// }
+
+// /* === Sidebar Nav === */
+// .navbar-menu .navbar-nav {
+//     margin: 0;
+//     padding: 0;
+//     list-style: none;
+// }
+
+// /* Top-level links */
+// .navbar-menu .navbar-nav .nav-link {
+//     display: flex;
+//     align-items: center;
+//     gap: 8px;
+//     /* space between icon & text */
+//     font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//     font-weight: 500;
+//     font-size: 15px;
+//     color: #333;
+//     padding: 10px 15px;
+//     transition: all 0.2s ease-in-out;
+//     border-radius: 6px;
+// }
+
+// /* Hover & Active */
+// .navbar-menu .navbar-nav .nav-link:hover,
+// .navbar-menu .navbar-nav .nav-link.active {
+//     background-color: #ef8f7c;
+//     color: #fff !important;
+// }
+
+// /* Menu titles */
+// .menu-title {
+//     padding: 12px 15px 6px 15px;
+//     font-size: 12px;
+//     text-transform: uppercase;
+//     color: #888;
+//     font-weight: 600;
+// }
+
+// /* Submenus */
+// .menu-dropdown .nav-link {
+//     padding: 8px 30px;
+//     /* indent child links */
+//     font-size: 14px;
+// }
+
+// /* Extra submenus (nested deeper) */
+// .sub-menu .nav-link,
+// .extra-sub-menu .nav-link {
+//     padding: 8px 45px;
+//     /* more indent */
+//     font-size: 13px;
+// }
+
+// /* Badges inside links */
+// .nav-link .badge {
+//     margin-left: auto;
+//     /* align badge to right */
+//     font-size: 11px;
+// }
+
+// /* === Sidebar Footer (User Section) === */
+// .sidebar-footer {
+//     margin-top: auto;
+//     /* push footer down */
+//     border-top: 1px solid #ddd;
+//     padding: 12px;
+//     text-align: center;
+//     background: linear-gradient(to bottom right, #0f766e 0%, #1e3a8a 100%);
+//     color: #fff;
+//      font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//     font-size: 14px;
+// }
+// .bg-warning {
+//     background-color: #FF8C00!important;
+// }
+
+
+
+
+
+
+.gradient-text {
+    background: linear-gradient(90deg, #ff4d4f, #1890ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+}
+
+/* Sidebar container as flex column */
+.app-menu.navbar-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    /* stretch full height */
+    height: 100%;
+    /* instead of 100vh */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Scrollable menu area fills remaining height */
+// .sidebar-menu-scroll {
+//     flex: 1 1 auto;
+//     overflow-y: auto;
+// }
+
+.navbar-menu .navbar-nav .nav-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+/* Circle icon style */
+.circleTop {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    background: #FF8C00;
+}
+
+/* User section background */
+.bg-user {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    background: linear-gradient(to bottom right, #1E3A8A 0%, #0F1E54 98.18%) !important;
+    color: #fff;
+    font-family: 'Inconsolata', monospace !important;
+}
+
+/* Default link styles */
+.app-menu.navbar-menu .navbar-nav .nav-link {
+    background-color: transparent;
+    color: #333;
+}
+
+/* Active & Focused Link */
+.app-menu.navbar-menu .navbar-nav .nav-link.active,
+.app-menu.navbar-menu .navbar-nav .nav-link:focus {
+    background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Hovered Link */
+.app-menu.navbar-menu .navbar-nav .nav-link:hover {
+    background: linear-gradient(135deg, #275cb2 0%, #80b3f2 100%);
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+
+
+/* Logout link style same as other menu items */
+.sidebar-bottom .nav-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    color: #333;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Hover/focus effect for logout */
+.sidebar-bottom .nav-link:hover,
+.sidebar-bottom .nav-link:focus {
+    background: linear-gradient(135deg, #275cb2 0%, #80b3f2 100%);
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.app-menu.navbar-menu {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.sidebar-bottom {
+  margin-top: 0; /* logout always below scrollable menu */
+}
+
+
+/* Hover & Active state with gradient + rounded corners */
+// .app-menu.navbar-menu .navbar-nav .nav-link:hover,
+// .app-menu.navbar-menu .navbar-nav .nav-link.active,
+// .app-menu.navbar-menu .navbar-nav .nav-link:focus {
+//     background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%) !important; /* classy gradient */
+//     color: #fff !important;
+//     border-radius: 8px; /* smooth rounded corners */
+//     box-shadow: 0 2px 6px rgba(59, 118, 237, 0.3); /* subtle glow */
+// }

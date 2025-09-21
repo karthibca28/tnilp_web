@@ -1,0 +1,21 @@
+name: deployment.yml
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Deploy to Dev Server
+              if: github.ref == 'refs/heads/master'
+              uses: appleboy/ssh-action@master
+              with:
+                  host: ${{secrets.HOST}}
+                  username: ${{secrets.USER}}
+                  key: ${{secrets.KEY}}
+                  script: |
+                    sh ~/scripts/cicd/IRT_CM_angular_cicd.sh
+                    
+                    

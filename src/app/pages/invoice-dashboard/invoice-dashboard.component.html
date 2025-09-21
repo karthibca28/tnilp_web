@@ -1,0 +1,233 @@
+<div class="invoice-dashboard-container">
+  <div class="main-content">
+    <!-- Header -->
+    <div class="content-header">
+      <div class="header-left">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">CMS</span>
+          <span class="breadcrumb-separator">></span>
+          <span class="breadcrumb-item active">Invoice</span>
+        </div>
+        <h1 class="page-title">Invoice Dashboard</h1>
+      </div>
+      
+      <div class="header-right">
+        <button class="btn btn-secondary" (click)="onGenerateInvoice()">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Generate Invoice
+        </button>
+        <button class="btn btn-primary" (click)="onExportCSV()">
+          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Export CSV
+        </button>
+      </div>
+    </div>
+
+    <!-- Invoice Status Tabs -->
+    <div class="status-tabs">
+      <button 
+        *ngFor="let tab of statusTabs" 
+        class="status-tab" 
+        [class.active]="selectedStatus === tab.value"
+        (click)="onStatusChange(tab.value)">
+        {{ tab.label }}
+      </button>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label class="filter-label">Month</label>
+          <select class="filter-select" [(ngModel)]="selectedMonth">
+            <option value="all">All Months</option>
+            <option value="2025-08">August, 2025</option>
+            <option value="2025-07">July, 2025</option>
+            <option value="2025-06">June, 2025</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Vendor</label>
+          <select class="filter-select" [(ngModel)]="selectedVendor">
+            <option value="all">All</option>
+            <option value="metro-transports">Metro Transports</option>
+            <option value="blueline-services">BlueLine Services</option>
+            <option value="urban-wheels">Urban Wheels</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Depot</label>
+          <select class="filter-select" [(ngModel)]="selectedDepot">
+            <option value="all">All</option>
+            <option value="central">Central</option>
+            <option value="north">North</option>
+            <option value="south">South</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Contract</label>
+          <select class="filter-select" [(ngModel)]="selectedContract">
+            <option value="all">All</option>
+            <option value="contract-a">Contract-A</option>
+            <option value="contract-b">Contract-B</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label class="filter-label">Payment Status</label>
+          <select class="filter-select" [(ngModel)]="selectedPaymentStatus">
+            <option value="all">All</option>
+            <option value="paid">Paid</option>
+            <option value="unpaid">Unpaid</option>
+            <option value="overdue">Overdue</option>
+          </select>
+        </div>
+        
+        <div class="filter-group search-group">
+          <label class="filter-label">Search</label>
+          <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Search invoice no, vendor, depot..."
+            [(ngModel)]="searchTerm"
+            (input)="onSearch()">
+        </div>
+      </div>
+      
+      <div class="filter-actions">
+        <button class="btn btn-secondary" (click)="onResetFilters()">Reset</button>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <div class="summary-card">
+        <div class="card-header">
+          <h3 class="card-title">Total Invoices</h3>
+          <div class="card-value">{{ totalInvoices }}</div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgressPercentage(totalInvoices, 10)"></div>
+        </div>
+      </div>
+      
+      <div class="summary-card">
+        <div class="card-header">
+          <h3 class="card-title">Total Amount</h3>
+          <div class="card-value">₹ {{ formatCurrency(totalAmount) }}</div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgressPercentage(totalAmount, 5000000)"></div>
+        </div>
+      </div>
+      
+      <div class="summary-card">
+        <div class="card-header">
+          <h3 class="card-title">Paid</h3>
+          <div class="card-value">₹ {{ formatCurrency(paidAmount) }}</div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgressPercentage(paidAmount, totalAmount)"></div>
+        </div>
+      </div>
+      
+      <div class="summary-card">
+        <div class="card-header">
+          <h3 class="card-title">Outstanding</h3>
+          <div class="card-value">₹ {{ formatCurrency(outstandingAmount) }}</div>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgressPercentage(outstandingAmount, totalAmount)"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoice Table -->
+    <div class="table-container">
+      <div class="table-header">
+        <div class="table-title">All Invoices</div>
+        <div class="table-actions">
+          <button class="btn btn-secondary btn-sm" (click)="onCopyTable()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M20 9H11C9.89543 9 9 9.89543 9 11V20C9 21.1046 9.89543 22 11 22H20C21.1046 22 22 21.1046 22 20V11C22 9.89543 21.1046 9 20 9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M5 15H4C2.89543 15 2 14.1046 2 13V4C2 2.89543 2.89543 2 4 2H13C14.1046 2 15 2.89543 15 4V5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Copy
+          </button>
+          <button class="btn btn-primary btn-sm" (click)="onDownloadXLSX()">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M7 10L12 15L17 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Download XLSX
+          </button>
+        </div>
+      </div>
+      
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Invoice #</th>
+              <th>Period</th>
+              <th>Vendor</th>
+              <th>Depot</th>
+              <th>Contract</th>
+              <th>Base ₹</th>
+              <th>Penalties ₹</th>
+              <th>Incentives ₹</th>
+              <th>Tax ₹</th>
+              <th>Total ₹</th>
+              <th>Paid ₹</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th>Payment</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let invoice of filteredInvoices; trackBy: trackByInvoice">
+              <td class="invoice-number">{{ invoice.invoiceNumber }}</td>
+              <td>{{ invoice.period }}</td>
+              <td>{{ invoice.vendor }}</td>
+              <td>{{ invoice.depot }}</td>
+              <td>{{ invoice.contract }}</td>
+              <td class="amount">{{ formatCurrency(invoice.baseAmount) }}</td>
+              <td class="amount">{{ formatCurrency(invoice.penalties) }}</td>
+              <td class="amount">{{ formatCurrency(invoice.incentives) }}</td>
+              <td class="amount">{{ formatCurrency(invoice.tax) }}</td>
+              <td class="amount total">{{ formatCurrency(invoice.totalAmount) }}</td>
+              <td class="amount">{{ formatCurrency(invoice.paidAmount) }}</td>
+              <td>{{ invoice.dueDate }}</td>
+              <td>
+                <span class="status-tag" [class]="'status-' + invoice.status.toLowerCase()">
+                  {{ invoice.status }}
+                </span>
+              </td>
+              <td>
+                <span class="payment-tag" [class]="'payment-' + invoice.paymentStatus.toLowerCase()">
+                  {{ invoice.paymentStatus }}
+                </span>
+              </td>
+              <td>
+                <button class="btn btn-outline btn-sm" (click)="onViewInvoice(invoice)">
+                  View
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

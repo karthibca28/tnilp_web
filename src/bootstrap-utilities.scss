@@ -1,0 +1,164 @@
+// Bootstrap Custom Utilities
+// Additional utility classes for the project
+
+// Custom spacing utilities
+.spacing-xs { margin: 0.25rem !important; }
+.spacing-sm { margin: 0.5rem !important; }
+.spacing-md { margin: 1rem !important; }
+.spacing-lg { margin: 1.5rem !important; }
+.spacing-xl { margin: 2rem !important; }
+
+// Custom padding utilities
+.p-xs { padding: 0.25rem !important; }
+.p-sm { padding: 0.5rem !important; }
+.p-md { padding: 1rem !important; }
+.p-lg { padding: 1.5rem !important; }
+.p-xl { padding: 2rem !important; }
+
+// Custom margin utilities
+.m-xs { margin: 0.25rem !important; }
+.m-sm { margin: 0.5rem !important; }
+.m-md { margin: 1rem !important; }
+.m-lg { margin: 1.5rem !important; }
+.m-xl { margin: 2rem !important; }
+
+// Custom text utilities
+.text-primary-custom { color: #059669 !important; }
+.text-secondary-custom { color: #10b981 !important; }
+.text-success-custom { color: #22c55e !important; }
+.text-info-custom { color: #3b82f6 !important; }
+.text-warning-custom { color: #f59e0b !important; }
+.text-danger-custom { color: #ef4444 !important; }
+
+// Custom background utilities
+.bg-primary-custom { background-color: #059669 !important; }
+.bg-secondary-custom { background-color: #10b981 !important; }
+.bg-success-custom { background-color: #22c55e !important; }
+.bg-info-custom { background-color: #3b82f6 !important; }
+.bg-warning-custom { background-color: #f59e0b !important; }
+.bg-danger-custom { background-color: #ef4444 !important; }
+
+// Custom border utilities
+.border-primary-custom { border-color: #059669 !important; }
+.border-secondary-custom { border-color: #10b981 !important; }
+.border-success-custom { border-color: #22c55e !important; }
+.border-info-custom { border-color: #3b82f6 !important; }
+.border-warning-custom { border-color: #f59e0b !important; }
+.border-danger-custom { border-color: #ef4444 !important; }
+
+// Custom shadow utilities
+.shadow-custom { box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important; }
+.shadow-custom-sm { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important; }
+.shadow-custom-lg { box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1) !important; }
+.shadow-custom-xl { box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1) !important; }
+
+// Custom flex utilities
+.flex-center { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: center !important; 
+}
+.flex-between { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: space-between !important; 
+}
+.flex-start { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: flex-start !important; 
+}
+.flex-end { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: flex-end !important; 
+}
+
+// Custom grid utilities
+.grid-auto { 
+  display: grid !important; 
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important; 
+  gap: 1rem !important; 
+}
+.grid-2 { 
+  display: grid !important; 
+  grid-template-columns: repeat(2, 1fr) !important; 
+  gap: 1rem !important; 
+}
+.grid-3 { 
+  display: grid !important; 
+  grid-template-columns: repeat(3, 1fr) !important; 
+  gap: 1rem !important; 
+}
+.grid-4 { 
+  display: grid !important; 
+  grid-template-columns: repeat(4, 1fr) !important; 
+  gap: 1rem !important; 
+}
+
+// Custom responsive utilities
+@media (max-width: 768px) {
+  .grid-auto, .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+// Custom animation utilities
+.fade-in { 
+  animation: fadeIn 0.3s ease-in-out !important; 
+}
+.slide-up { 
+  animation: slideUp 0.3s ease-in-out !important; 
+}
+.scale-in { 
+  animation: scaleIn 0.3s ease-in-out !important; 
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+// Custom hover utilities
+.hover-lift { 
+  transition: transform 0.3s ease !important; 
+}
+.hover-lift:hover { 
+  transform: translateY(-4px) !important; 
+}
+
+.hover-scale { 
+  transition: transform 0.3s ease !important; 
+}
+.hover-scale:hover { 
+  transform: scale(1.05) !important; 
+}
+
+.hover-shadow { 
+  transition: box-shadow 0.3s ease !important; 
+}
+.hover-shadow:hover { 
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important; 
+}

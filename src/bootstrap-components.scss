@@ -1,0 +1,284 @@
+// Bootstrap Custom Components
+// Additional component styles that extend Bootstrap
+
+// Custom Card Component
+.card-custom {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+  
+  .card-header-custom {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+    padding: 1.5rem;
+    border: none;
+    
+    .card-title-custom {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .card-subtitle-custom {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      margin: 0.5rem 0 0 0;
+    }
+  }
+  
+  .card-body-custom {
+    padding: 1.5rem;
+  }
+  
+  .card-footer-custom {
+    background: #f8f9fa;
+    border-top: 1px solid #e9ecef;
+    border-radius: 0 0 12px 12px;
+    padding: 1rem 1.5rem;
+  }
+}
+
+// Custom Button Component
+.btn-custom {
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  border: none;
+  
+  &.btn-primary-custom {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+    
+    &:hover {
+      background: linear-gradient(135deg, #047857 0%, #059669 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+    }
+  }
+  
+  &.btn-secondary-custom {
+    background: #f8f9fa;
+    color: #495057;
+    border: 1px solid #dee2e6;
+    
+    &:hover {
+      background: #e9ecef;
+      border-color: #adb5bd;
+    }
+  }
+  
+  &.btn-outline-custom {
+    background: transparent;
+    color: #059669;
+    border: 2px solid #059669;
+    
+    &:hover {
+      background: #059669;
+      color: white;
+    }
+  }
+}
+
+// Custom Form Component
+.form-custom {
+  .form-label-custom {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control-custom {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+    
+    &:focus {
+      border-color: #059669;
+      box-shadow: 0 0 0 0.2rem rgba(5, 150, 105, 0.25);
+    }
+  }
+  
+  .form-select-custom {
+    @extend .form-control-custom;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m1 6 7 7 7-7'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 16px 12px;
+  }
+}
+
+// Custom Table Component
+.table-custom {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  thead {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+    
+    th {
+      border: none;
+      font-weight: 600;
+      padding: 1rem;
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: #f8f9fa;
+      }
+      
+      td {
+        border-color: #e9ecef;
+        padding: 1rem;
+      }
+    }
+  }
+}
+
+// Custom Alert Component
+.alert-custom {
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  
+  &.alert-primary-custom {
+    background: linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+    color: #059669;
+    border-left: 4px solid #059669;
+  }
+  
+  &.alert-success-custom {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.1) 100%);
+    color: #16a34a;
+    border-left: 4px solid #16a34a;
+  }
+  
+  &.alert-warning-custom {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%);
+    color: #d97706;
+    border-left: 4px solid #d97706;
+  }
+  
+  &.alert-danger-custom {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%);
+    color: #dc2626;
+    border-left: 4px solid #dc2626;
+  }
+}
+
+// Custom Badge Component
+.badge-custom {
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  
+  &.badge-primary-custom {
+    background: #059669;
+    color: white;
+  }
+  
+  &.badge-secondary-custom {
+    background: #6c757d;
+    color: white;
+  }
+  
+  &.badge-success-custom {
+    background: #22c55e;
+    color: white;
+  }
+  
+  &.badge-warning-custom {
+    background: #f59e0b;
+    color: white;
+  }
+  
+  &.badge-danger-custom {
+    background: #ef4444;
+    color: white;
+  }
+}
+
+// Custom Modal Component
+.modal-custom {
+  .modal-content-custom {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header-custom {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    color: white;
+    border-radius: 16px 16px 0 0;
+    border: none;
+    padding: 1.5rem;
+    
+    .modal-title-custom {
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+  
+  .modal-body-custom {
+    padding: 1.5rem;
+  }
+  
+  .modal-footer-custom {
+    border: none;
+    padding: 1rem 1.5rem;
+    background: #f8f9fa;
+    border-radius: 0 0 16px 16px;
+  }
+}
+
+// Custom Nav Component
+.nav-custom {
+  .nav-link-custom {
+    color: #495057;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #059669;
+      background-color: rgba(5, 150, 105, 0.1);
+    }
+    
+    &.active {
+      color: #059669;
+      background-color: rgba(5, 150, 105, 0.1);
+      font-weight: 600;
+    }
+  }
+}
+
+// Custom Progress Component
+.progress-custom {
+  height: 8px;
+  border-radius: 4px;
+  background-color: #e9ecef;
+  
+  .progress-bar-custom {
+    background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+    border-radius: 4px;
+    transition: width 0.6s ease;
+  }
+}

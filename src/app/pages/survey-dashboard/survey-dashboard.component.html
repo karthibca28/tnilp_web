@@ -1,0 +1,338 @@
+<!-- Common Header -->
+<app-common-header></app-common-header>
+
+<div class="survey-dashboard-container">
+
+  <!-- Overall Summary Section -->
+  <div class="overall-summary-section">
+    <div class="summary-header">
+      <h2 class="summary-title">Overall Summary</h2>
+      <!-- <button type="button" class="export-button">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="7,10 12,15 17,10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="12" y1="15" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Export
+      </button> -->
+    </div>
+    <div class="summary-cards">
+      <div class="summary-card total-entries">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Total No of HouseHold Entries</h3>
+          <div class="card-value">{{ overallSummary.totalHouseholdEntries | number }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-card today-entries">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+            <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2"/>
+            <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2"/>
+            <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Today No of HouseHold Entries</h3>
+          <div class="card-value">{{ overallSummary.todayHouseholdEntries | number }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-card completed-entries">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Completed Entries</h3>
+          <div class="card-value">{{ overallSummary.completedEntries | number }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-card pending-entries">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Pending Entries</h3>
+          <div class="card-value">{{ overallSummary.pendingEntries | number }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Households Type Section -->
+  <div class="households-type-section">
+    <div class="households-header">
+      <h2 class="households-title">Households Type</h2>
+    </div>
+    <div class="households-cards">
+      <div class="household-card uid-smartcard" (click)="onUidSmartCardClick()">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+            <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/>
+            <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>No of HH with UID & Smart Card</h3>
+          <div class="card-value">{{ householdType.uidSmartCard | number }}</div>
+        </div>
+      </div>
+      
+      <div class="household-card without-uid-smartcard" (click)="onWithoutUidSmartCardClick()">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/>
+            <line x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/>
+            <line x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/>
+            <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>No of HH without UID & Smart Card</h3>
+          <div class="card-value">{{ householdType.withoutUidSmartCard | number }}</div>
+        </div>
+      </div>
+      
+      <div class="household-card pds-not-found" (click)="onPdsNotFoundClick()">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="9" y1="22" x2="9" y2="12" stroke="currentColor" stroke-width="2"/>
+            <line x1="15" y1="22" x2="15" y2="12" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Pds Not Found</h3>
+          <div class="card-value">{{ householdType.pdsNotFound | number }}</div>
+        </div>
+      </div>
+      
+      <div class="household-card person-not-available" (click)="onPersonNotAvailableClick()">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M23 21V19C22.9993 18.1137 22.7044 17.2528 22.1614 16.5523C21.6184 15.8519 20.8581 15.3516 20 15.13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M16 3.13C16.8604 3.35031 17.623 3.85071 18.1676 4.55232C18.7122 5.25392 19.0078 6.11683 19.0078 7.005C19.0078 7.89317 18.7122 8.75608 18.1676 9.45768C17.623 10.1593 16.8604 10.6597 16 10.88" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>No of HH Person not available</h3>
+          <div class="card-value">{{ householdType.personNotAvailable | number }}</div>
+        </div>
+      </div>
+      
+      <div class="household-card homeless" (click)="onHomelessClick()">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="9" y1="22" x2="9" y2="12" stroke="currentColor" stroke-width="2"/>
+            <line x1="15" y1="22" x2="15" y2="12" stroke="currentColor" stroke-width="2"/>
+            <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>No of Homeless</h3>
+          <div class="card-value">{{ householdType.homeless | number }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="dashboard-content">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="pat-indicator-card" (click)="onUserManagementClick()">
+          <div class="pat-indicator-header">
+            <div class="pat-indicator-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              </div>
+            <div class="pat-indicator-content">
+              <h3>User Management</h3>
+              <p>Poverty Assessment Tool - Vulnerability Scoring</p>
+            </div>
+            <div class="pat-indicator-count">
+              <span class="count-number">{{ userManagementStats.totalUsers }}</span>
+              <span class="count-label">Total Users</span>
+            </div>
+          </div>
+          <div class="pat-indicator-stats">
+            <div class="stat-item">
+              <span class="stat-value">{{ userManagementStats.activeUsers }}</span>
+              <span class="stat-label">Active Users</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ userManagementStats.newUsers }}</span>
+              <span class="stat-label">New This Week</span>
+            </div>
+          </div>
+          <div class="pat-indicator-footer">
+            <button type="button" class="view-pat-btn" (click)="onUserManagementClick(); $event.stopPropagation()">
+              Manage Users
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="pat-indicator-card" (click)="onPatIndicatorClick()">
+          <div class="pat-indicator-header">
+            <div class="pat-indicator-icon">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9c1.5 0 2.91.37 4.15 1.02" stroke="currentColor"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="pat-indicator-content">
+              <h3>PAT Indicator Assessment</h3>
+              <p>Poverty Assessment Tool - Vulnerability Scoring</p>
+            </div>
+            <div class="pat-indicator-count">
+              <span class="count-number">{{ patIndicatorStats.totalCount }}</span>
+              <span class="count-label">Total Records</span>
+            </div>
+          </div>
+          <div class="pat-indicator-stats">
+            <div class="stat-item">
+              <span class="stat-value">{{ patIndicatorStats.averageScore }}</span>
+              <span class="stat-label">Avg Score</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ patIndicatorStats.highVulnerability }}</span>
+              <span class="stat-label">High Risk</span>
+            </div>
+          </div>
+          <div class="pat-indicator-footer">
+            <button type="button" class="view-pat-btn" (click)="onPatIndicatorClick(); $event.stopPropagation()">
+              View PAT Indicators
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- District Cards -->
+    <!-- <div class="district-cards">
+      <div class="district-card" *ngFor="let district of districts" (click)="onDistrictClick(district)">
+        <div class="district-image">
+          <img [src]="district.image" [alt]="district.name + ' District'" class="district-img">
+          <div class="district-overlay">
+            <div class="district-badge">{{ district.status }}</div>
+          </div>
+        </div>
+        <div class="district-content">
+          <h3 class="district-title">{{ district.name }}</h3>
+          <p class="district-subtitle">{{ district.tamilName }}</p>
+          <div class="district-stats">
+            <div class="stat">
+              <span class="stat-value">{{ district.totalUsers }}</span>
+              <span class="stat-label">Total Users</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">{{ district.blocks }}</span>
+              <span class="stat-label">Blocks</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">{{ district.completionRate }}%</span>
+              <span class="stat-label">Completion</span>
+            </div>
+          </div>
+          <div class="district-actions">
+            <button type="button" class="btn btn-primary" (click)="onViewDistrict(district); $event.stopPropagation()">
+              View Details
+            </button>
+            <button type="button" class="btn btn-secondary"
+              (click)="onManageDistrict(district); $event.stopPropagation()">
+              Manage Users
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Vulnerability Indicators -->
+    <div class="indicators-section">
+      <div class="indicators-card">
+        <div class="indicators-header">
+          <h3>Vulnerability Assessment Indicators</h3>
+          <p class="indicators-subtitle">10 Key Indicators for Household Vulnerability Scoring (0-5 scale)</p>
+        </div>
+        <div class="indicators-grid">
+          <div class="indicator-item" *ngFor="let indicator of vulnerabilityIndicators">
+            <div class="indicator-icon" [class]="'indicator-' + indicator.id">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div class="indicator-content">
+              <h4 class="indicator-title">{{ indicator.name }}</h4>
+              <p class="indicator-description">{{ indicator.description }}</p>
+              <div class="indicator-score-range">
+                <span class="score-label">Score Range:</span>
+                <span class="score-value">{{ indicator.minScore }} - {{ indicator.maxScore }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="activity-section">
+      <div class="activity-card">
+        <div class="activity-header">
+          <h3>Recent Survey Activity</h3>
+          <button type="button" class="view-all-btn" (click)="onViewAllActivity()">View All</button>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item" *ngFor="let activity of recentActivity">
+            <div class="activity-icon" [class]="'icon-' + activity.type">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" />
+              </svg>
+            </div>
+            <div class="activity-content">
+              <p class="activity-text">{{ activity.text }}</p>
+              <span class="activity-time">{{ activity.time }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

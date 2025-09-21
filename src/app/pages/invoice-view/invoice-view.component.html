@@ -1,0 +1,391 @@
+<div class="invoice-view-container">
+  <div class="main-content">
+    <!-- Header -->
+    <div class="content-header">
+      <div class="header-left">
+        <div class="breadcrumb">
+          <span class="breadcrumb-item">CMS</span>
+          <span class="breadcrumb-separator">></span>
+          <span class="breadcrumb-item">Invoice</span>
+          <span class="breadcrumb-separator">></span>
+          <span class="breadcrumb-item active">{{ invoice?.invoiceNumber }}</span>
+        </div>
+        <h1 class="page-title">{{ invoice?.title }}</h1>
+        <p class="page-subtitle">{{ invoice?.contract }} • {{ invoice?.depot }} • {{ invoice?.vehicleType }}</p>
+      </div>
+      
+      <div class="header-right">
+        <button class="btn btn-secondary" (click)="onSendEmail()">
+          Send Email
+        </button>
+        <button class="btn btn-secondary" (click)="onExportCSV()">
+          Export CSV
+        </button>
+        <button class="btn btn-primary" (click)="onPrintPDF()">
+          Print/PDF
+        </button>
+      </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="summary-cards">
+      <div class="summary-card base">
+        <div class="card-header">
+          <h3 class="card-title">Base</h3>
+          <div class="card-value">₹ {{ formatCurrency(invoice?.baseAmount) }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-card penalties">
+        <div class="card-header">
+          <h3 class="card-title">Penalties</h3>
+          <div class="card-value">₹ {{ formatCurrency(invoice?.penalties) }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-card incentives">
+        <div class="card-header">
+          <h3 class="card-title">Incentives</h3>
+          <div class="card-value">₹ {{ formatCurrency(invoice?.incentives) }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-card adjustments">
+        <div class="card-header">
+          <h3 class="card-title">Adjustments</h3>
+          <div class="card-value">₹ {{ formatCurrency(invoice?.adjustments) }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-card tax">
+        <div class="card-header">
+          <h3 class="card-title">Tax</h3>
+          <div class="card-value">₹ {{ formatCurrency(invoice?.tax) }}</div>
+        </div>
+      </div>
+      
+      <div class="summary-card total">
+        <div class="card-header">
+          <h3 class="card-title">Total / Outstanding</h3>
+          <div class="card-value">₹ {{ formatCurrency(invoice?.totalAmount) }} / ₹ {{ formatCurrency(invoice?.outstandingAmount) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoice Details and Amount Summary -->
+    <div class="details-section">
+      <!-- Invoice Details Card -->
+      <div class="detail-card">
+        <div class="card-header">
+          <h3 class="card-title">Invoice Details</h3>
+        </div>
+        <div class="card-body">
+          <div class="detail-grid">
+            <div class="detail-item">
+              <label>Invoice #</label>
+              <span class="invoice-number">{{ invoice?.invoiceNumber }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Status</label>
+              <span class="status-tag" [class]="'status-' + invoice?.status?.toLowerCase()">
+                {{ invoice?.status }}
+              </span>
+            </div>
+            <div class="detail-item">
+              <label>Period</label>
+              <span>{{ invoice?.period }}</span>
+            </div>
+            <div class="detail-item">
+              <label>Due Date</label>
+              <span>{{ invoice?.dueDate }}</span>
+            </div>
+            <div class="detail-item full-width">
+              <label>Bill To</label>
+              <span>{{ invoice?.billTo?.name }}<br>
+              {{ invoice?.billTo?.address }} • GST: {{ invoice?.billTo?.gst }}</span>
+            </div>
+            <div class="detail-item full-width">
+              <label>Vendor</label>
+              <span>{{ invoice?.vendor?.name }}<br>
+              {{ invoice?.vendor?.contract }} • {{ invoice?.vendor?.depot }} • GST: {{ invoice?.vendor?.gst }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amount Summary Card -->
+      <div class="detail-card">
+        <div class="card-header">
+          <h3 class="card-title">Amount Summary</h3>
+        </div>
+        <div class="card-body">
+          <div class="amount-breakdown">
+            <div class="amount-item">
+              <span>Base Amount</span>
+              <span>₹ {{ formatCurrency(invoice?.baseAmount) }}</span>
+            </div>
+            <div class="amount-item penalty">
+              <span>Penalties</span>
+              <span>- ₹ {{ formatCurrency(invoice?.penalties) }}</span>
+            </div>
+            <div class="amount-item incentive">
+              <span>Incentives</span>
+              <span>+ ₹ {{ formatCurrency(invoice?.incentives) }}</span>
+            </div>
+            <div class="amount-item">
+              <span>Adjustments</span>
+              <span>+ ₹ {{ formatCurrency(invoice?.adjustments) }}</span>
+            </div>
+            <div class="amount-item subtotal">
+              <span>Subtotal</span>
+              <span>₹ {{ formatCurrency(invoice?.subtotal) }}</span>
+            </div>
+            <div class="amount-item">
+              <span>Tax (18%)</span>
+              <span>₹ {{ formatCurrency(invoice?.tax) }}</span>
+            </div>
+            <div class="amount-item total">
+              <span>Total</span>
+              <span>₹ {{ formatCurrency(invoice?.totalAmount) }}</span>
+            </div>
+            <div class="amount-item">
+              <span>Paid</span>
+              <span>₹ {{ formatCurrency(invoice?.paidAmount) }}</span>
+            </div>
+            <div class="amount-item outstanding">
+              <span>Outstanding</span>
+              <span>₹ {{ formatCurrency(invoice?.outstandingAmount) }}</span>
+            </div>
+            <div class="amount-item">
+              <span>Payment Status</span>
+              <span class="payment-status" [class]="'payment-' + invoice?.paymentStatus?.toLowerCase()">
+                {{ invoice?.paymentStatus }}
+              </span>
+            </div>
+          </div>
+          <div class="auto-generated-note">
+            Auto-generated from {{ invoice?.period }} KPI & trip data.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Base Billing and Penalties -->
+    <div class="billing-section">
+      <!-- Base Billing Card -->
+      <div class="billing-card">
+        <div class="card-header">
+          <h3 class="card-title">Base Billing</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table class="billing-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Qty</th>
+                  <th>Rate</th>
+                  <th>Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of invoice?.baseBilling">
+                  <td>{{ item.description }}</td>
+                  <td>{{ item.quantity }}</td>
+                  <td>₹ {{ formatCurrency(item.rate) }}</td>
+                  <td class="amount">{{ formatCurrency(item.amount) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Penalties Card -->
+      <div class="billing-card">
+        <div class="card-header">
+          <h3 class="card-title">Penalties</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table class="billing-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Notes</th>
+                  <th>Qty</th>
+                  <th>Rate</th>
+                  <th>Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let penalty of invoice?.penaltiesDetails">
+                  <td>{{ penalty.category }}</td>
+                  <td>{{ penalty.notes }}</td>
+                  <td>{{ penalty.quantity }}</td>
+                  <td>₹ {{ formatCurrency(penalty.rate) }}</td>
+                  <td class="amount">{{ formatCurrency(penalty.amount) }}</td>
+                </tr>
+                <tr class="total-row">
+                  <td colspan="4"><strong>Total:</strong></td>
+                  <td class="amount"><strong>{{ formatCurrency(invoice?.penalties) }}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Incentives and Payment -->
+    <div class="incentives-payment-section">
+      <!-- Incentives Card -->
+      <div class="incentives-card">
+        <div class="card-header">
+          <h3 class="card-title">Incentives</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table class="billing-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Notes</th>
+                  <th>Qty</th>
+                  <th>Rate</th>
+                  <th>Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let incentive of invoice?.incentivesDetails">
+                  <td>{{ incentive.category }}</td>
+                  <td>{{ incentive.notes }}</td>
+                  <td>{{ incentive.quantity }}</td>
+                  <td>₹ {{ formatCurrency(incentive.rate) }}</td>
+                  <td class="amount">{{ formatCurrency(incentive.amount) }}</td>
+                </tr>
+                <tr class="total-row">
+                  <td colspan="4"><strong>Total:</strong></td>
+                  <td class="amount"><strong>{{ formatCurrency(invoice?.incentives) }}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Summary Card -->
+      <div class="payment-card">
+        <div class="card-header">
+          <h3 class="card-title">Payment</h3>
+        </div>
+        <div class="card-body">
+          <div class="payment-summary">
+            <div class="payment-item">
+              <span>Total</span>
+              <span>₹ {{ formatCurrency(invoice?.totalAmount) }}</span>
+            </div>
+            <div class="payment-item">
+              <span>Paid</span>
+              <span>₹ {{ formatCurrency(invoice?.paidAmount) }}</span>
+            </div>
+            <div class="payment-item">
+              <span>Outstanding</span>
+              <span>₹ {{ formatCurrency(invoice?.outstandingAmount) }}</span>
+            </div>
+            <div class="payment-item">
+              <span>Due Date</span>
+              <span>{{ invoice?.dueDate }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Approvals and Payment History -->
+    <div class="approvals-history-section">
+      <!-- Approvals Card -->
+      <div class="approvals-card">
+        <div class="card-header">
+          <h3 class="card-title">Approvals</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table class="approvals-table">
+              <thead>
+                <tr>
+                  <th>Step</th>
+                  <th>By</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let approval of invoice?.approvals">
+                  <td>{{ approval.step }}</td>
+                  <td>{{ approval.by }}</td>
+                  <td>{{ approval.date || '—' }}</td>
+                  <td>
+                    <span class="approval-status" [class]="'status-' + (approval.status || '').toLowerCase()">
+                      {{ approval.status }}
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment History Card -->
+      <div class="payment-history-card">
+        <div class="card-header">
+          <h3 class="card-title">Payment History</h3>
+        </div>
+        <div class="card-body">
+          <div class="table-container">
+            <table class="payment-history-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Method</th>
+                  <th>Reference</th>
+                  <th>Amount (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let payment of invoice?.paymentHistory">
+                  <td>{{ payment.date }}</td>
+                  <td>{{ payment.method }}</td>
+                  <td>{{ payment.reference }}</td>
+                  <td class="amount">{{ formatCurrency(payment.amount) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bank Details -->
+    <div class="bank-details-section">
+      <div class="bank-details-card">
+        <div class="card-header">
+          <h3 class="card-title">Bank Details</h3>
+        </div>
+        <div class="card-body">
+          <div class="bank-info">
+            <span>{{ invoice?.bankDetails?.bankName }} • A/C {{ invoice?.bankDetails?.accountNumber }} • IFSC {{ invoice?.bankDetails?.ifsc }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Back Button -->
+    <div class="back-section">
+      <button class="btn btn-primary btn-large" (click)="onBackToDashboard()">
+        Back to Dashboard
+      </button>
+    </div>
+  </div>
+</div>
